@@ -1,4 +1,4 @@
-#  Search for a Movie applicatio
+#  Search for a Movie App 
 
 # Description
 
