@@ -25,4 +25,4 @@ git clone the repository
 
 git clone https://github.com/mk50/pythondeveloper_task
 
-On al host  http://192.168.56.1:3000  
+On Local host  http://192.168.56.1:3000  
