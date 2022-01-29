@@ -1,11 +1,12 @@
 import csv
 import json
-
-import xmltodict
-import xlrd
+from abc import ABC, abstractmethod
 from collections import OrderedDict
+
 import pandas as pd
-from abc import ABC,abstractmethod
+from sqlalchemy import null
+import xlrd
+import xmltodict
 
 
 class Interface_Converter(ABC):
@@ -24,12 +25,12 @@ class Interface_Converter(ABC):
 class Converter(Interface_Converter):
     def convertcsv(self,csvFilePath, jsonFilePath):
         data={}
-        with open(csvFilePath, encoding='utf-8') as mycsv:
+        with open(csvFilePath, encoding='latin-1') as mycsv:
               csvReader = csv.DictReader(mycsv)
               for rows in csvReader:
-                    key = rows['']
+                    key = rows['index']
                     data[key]=rows
-        with open(jsonFilePath,'w', encoding='utf-8') as jsonf:
+        with open(jsonFilePath,'w', encoding='latin-1') as jsonf:
              jsonf.write(json.dumps(data, indent=4))
 
     def convertXML(self,xmlfile,jsonFilePath):
@@ -48,8 +49,8 @@ class Converter(Interface_Converter):
         for rownum in range(1,sh.nrows):
             data=OrderedDict()
             row_values=sh.row_values(rownum)
-            data['First Name']=row_values[0]
-            data['Last Name'] = row_values[1]
+            data['First_Name']=row_values[0]
+            data['Last_Name'] = row_values[1]
             data['Gender'] = row_values[2]
             data['Country'] = row_values[3]
             data['Age'] = row_values[4]
@@ -74,20 +75,23 @@ xmlfile=Converter()
 xslfile=Converter()
 
 
-csvfile.convertcsv(csvFilePath, jsonFilePath)
+# csvfile.convertcsv(csvFilePath, jsonFilePath)
 # xmlfile.convertXML(xmlfilepath,jsonFilePath)
-# xslfile.convertxsl(xslfilepath,jsonFilePath)
+xslfile.convertxsl(xslfilepath,jsonFilePath)
 
 # making dataframe 
-df = pd.read_csv("databaseCSV.csv") 
+# df = pd.read_csv("databaseCSV.csv") 
    
-# output the dataframe
-# print(df[df.vote_average==8.7])
+# # output the dataframe
+# # print(df[df.vote_average==8.7])
 
-x=input('enter title : ')
-def getvalue(key,value):
-    return df[key==value]
-print(getvalue(df.title,x))
+# x=input('enter title : ')
+# def getvalue(key,value):
+#     return df[key==value]
+# print(getvalue(df.title,x))
+
+
+
 
 
 
