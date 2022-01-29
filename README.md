@@ -1,5 +1,7 @@
 #  Search for a Movie App 
 
+web applications helping users to choose movies to watch
+
 # Description
 
 Use paython langauge
