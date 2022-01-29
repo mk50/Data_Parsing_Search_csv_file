@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
   //  fetch('https://www.breakingbadapi.com/api/characters/?') #### ممكن استخدم endpoint  مثل breakingbad end point
   fetch("../public/pythonJSON.json")   // json file path
   .then((response)=>response.json())
-  .then((json)=>setData( json))
+  .then((json)=>setData(json))
   
 
    },[])

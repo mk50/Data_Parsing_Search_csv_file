@@ -5,7 +5,7 @@ from collections import OrderedDict
 import distutils
 from distutils import util
 import pandas as pd
-from sqlalchemy import null
+from sqlalchemy import column, null
 import xlrd
 import xmltodict
 
@@ -55,8 +55,8 @@ class Converter(Interface_Converter):
                  json_file.close()
 
     #method convertxls to json
-    def convertxsl(self,xslfile,jsonFilePath):
-        wb=xlrd.open_workbook(xslfile)
+    def convertxsl(self,xlsfile,jsonFilePath):
+        wb=xlrd.open_workbook(xlsfile)
         sh=wb.sheet_by_index(0)
         data_List=[]
         for rownum in range(1,sh.nrows):
@@ -78,22 +78,29 @@ class Converter(Interface_Converter):
 csvFilePath = r'dataset.csv'
 jsonFilePath = r'pythonJSON.json'
 xmlfilepath=r'xmlfilee.xml'
-xslfilepath=r'file_example_XLS_10.xls'
+xlsfilepath=r'file_example_XLS_10.xls'
  #make object of convert class   
 csvfile=Converter()
 xmlfile=Converter()
 xslfile=Converter()
 
+#use object csfile and pass you csvfile path and json file path to convert to JSON
+csvfile.convertcsv(csvFilePath, jsonFilePath)
 
-# csvfile.convertcsv(csvFilePath, jsonFilePath)  # use object csfile and pass you csvfile path and json file path to convert to JSON
-# xmlfile.convertXML(xmlfilepath,jsonFilePath)  # use object xmlfile and pass you xmlfile path and json file path to convert to JSON
-# xslfile.convertxsl(xslfilepath,jsonFilePath) # use object xlsfile and pass you xlsfile path and json file path to convert to JSON
+# use object xmlfile and pass you xmlfile path and json file path to convert to JSON
+xmlfile.convertXML(xmlfilepath,jsonFilePath)   
+
+# use object xlsfile and pass you xlsfile path and json file path to convert to JSON
+xslfile.convertxsl(xlsfilepath,jsonFilePath)
 
 # making dataframe 
 
 df = pd.read_csv("dataset.csv") 
 df= df.iloc[: , 1:]
-df.head()
+
+
+
+
    
 # select column title which need to access
 print(df.columns)
